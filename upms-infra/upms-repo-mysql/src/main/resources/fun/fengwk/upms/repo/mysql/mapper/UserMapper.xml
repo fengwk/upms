@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fun.fengwk.upms.repo.mysql.mapper.UserMapper">
+
+    <insert id="createTableIfNotExists">
+        create table if not exists user_${userSystemCode} (
+            id bigint unsigned not null comment '主键',
+            gmt_create datetime(3) not null default current_timestamp(3) comment '创建时间',
+            gmt_modified datetime(3) not null default current_timestamp(3) on update current_timestamp(3) comment '修改时间',
+            deleted tinyint(1) not null default 0 comment '是否删除，1-是，0-否',
+            username varchar(32) comment '用户名',
+            emali varchar(128) comment '邮箱',
+            mobile varchar(32) comment '手机号',
+            password varchar(128) comment '密码',
+            ext_info text comment '扩展信息',
+            primary key (id),
+            unique uk_username (username),
+            unique uk_email (email),
+            unique uk_mobile (mobile)
+            ) engine=InnoDB default charset=utf8mb4 comment='用户表';
+    </insert>
+
+</mapper>
